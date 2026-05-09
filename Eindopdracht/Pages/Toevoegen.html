@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Toevoegen</title>
 
-    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="../Css/Toevoegen.css">
 
     <!-- GOOGLE TRANSLATE SCRIPT -->
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </head>
 
 <body>
+
 
     <header class="app-header">
         <div class="header-left">
@@ -22,56 +22,34 @@
         </div>
 
         <select name="language" id="languageselect">
-        <option value="Nederlands">🇳🇱</option>
-        <option value="English">🇬🇧</option>
-    </select>
+            <option value="Nederlands">🇳🇱</option>
+            <option value="English">🇬🇧</option>
+        </select>
     </header>
 
     <main>
-        <section class="cards">
-            <div class="card">
-                <p>Sys</p>
-                <p>Systolisch</p>
-            </div>
-            <div class="card">
-                <p>Dia</p>
-                <p>Diastolisch</p>
-            </div>
-            <div class="card">
-                <p>gem-pols</p>
-                <p>Pols</p>
-            </div>
-        </section>
-
-        <section>
-            <div class="grafiek">
-                <h2 class="sectie-titel">Bloeddruk verloop (Laatste 7 dagen)</h2>
-                <canvas id="Chart"></canvas>
-            </div>
-        </section>
     </main>
 
     <footer>
         <nav class="Bottom-nav">
-            <a href="index.html" class="active">
+            <a href="../index.html">
                 <span class="nav-icon">🏠</span>
                 <span class="nav-label">Dashboard</span>
             </a>
-            <a href="Pages/Toevoegen.html">
+            <a href="Toevoegen.html" class="active">
                 <span class="nav-icon">➕</span>
                 <span class="nav-label">Toevoegen</span>
             </a>
-            <a href="Pages/MeetGeschiedenis.html">
+            <a href="MeetGeschiedenis.html">
                 <span class="nav-icon">📊</span>
                 <span class="nav-label">Meetgeschiedenis</span>
             </a>
-            <a href="Pages/Instellingen.html">
+            <a href="Instellingen.html">
                 <span class="nav-icon">⚙️</span>
                 <span class="nav-label">Instellingen</span>
             </a>
-
         </nav>
     </footer>
-</body>
 
+</body>
 </html>
