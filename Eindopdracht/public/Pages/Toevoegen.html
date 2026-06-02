@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="add">Toevoegen</title>
+
+    <!-- JUISTE RELATIEVE PADEN -->
+    <link rel="stylesheet" href="../Css/Toevoegen.css" />
+    <link rel="stylesheet" href="../Css/Instellingen.css" />
+
+    <script src="../Javascript/translate.js" defer></script>
+    <script src="../Javascript/instellingen.js" defer></script>
+    <script src="../Javascript/script.js" defer></script>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="header-left">
+        <span class="app-logo">💙</span>
+        <h1 class="app-titel">PulseWatch</h1>
+      </div>
+
+      <!-- RELATIEF PAD, GEEN /public/ -->
+      <a href="Instellingen.html">
+        <span class="nav-icon-settings">⚙️</span>
+      </a>
+    </header>
+
+    <main>
+      <form id="meting-formulier" class="meet-formulier">
+        <div class="form-group">
+          <label for="datum" data-i18n="date_time">Datum & tijd</label>
+          <input type="datetime-local" id="datum" name="datum" required />
+        </div>
+
+        <div class="form-group">
+          <label for="systolisch" data-i18n="sys">Systolisch</label>
+          <input type="number" id="systolisch" name="systolisch" required />
+        </div>
+
+        <div class="form-group">
+          <label for="diastolisch" data-i18n="dia">Diastolisch</label>
+          <input type="number" id="diastolisch" name="diastolisch" required />
+        </div>
+
+        <div class="form-group">
+          <label for="pols" data-i18n="pulse">Pols</label>
+          <input type="number" id="pols" name="pols" required />
+        </div>
+
+        <div class="form-group">
+          <label for="notitie" data-i18n="note_optional">Notitie (optioneel)</label>
+          <textarea id="notitie" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="submit-button" data-i18n="add">
+          Toevoegen
+        </button>
+
+        <div class="succes-bericht" id="succes-melding" style="display: none">
+          Meting succesvol toegevoegd!
+        </div>
+      </form>
+    </main>
+
+    <footer>
+      <nav class="Bottom-nav">
+        <a href="../index.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="dashboard">Dashboard</span>
+        </a>
+
+        <a href="Toevoegen.html">
+          <span class="nav-icon">➕</span>
+          <span class="nav-label" data-i18n="add">Toevoegen</span>
+        </a>
+
+        <a href="MeetGeschiedenis.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="history">Geschiedenis</span>
+        </a>
+      </nav>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const prefs = JSON.parse(localStorage.getItem('pulsewatch_prefs') || '{}');
+
+        document.documentElement.setAttribute(
+          'data-theme',
+          prefs.donker ? 'dark' : 'light'
+        );
+
+        if (prefs.taal) {
+          document.documentElement.lang = prefs.taal;
+          await loadLanguage(prefs.taal);
+        }
+      });
+    </script>
+  </body>
+</html>

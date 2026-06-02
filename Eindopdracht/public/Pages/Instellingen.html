@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="settings_title">Instellingen</title>
+
+    <!-- JUISTE RELATIEVE PADEN -->
+    <link rel="stylesheet" href="../Css/Instellingen.css" />
+    <script src="../Javascript/translate.js" defer></script>
+    <script src="../Javascript/instellingen.js" defer></script>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="header-left">
+        <span class="app-logo">💙</span>
+        <h1 class="app-titel">PulseWatch</h1>
+      </div>
+
+      <!-- RELATIEF PAD, GEEN /public/ -->
+      <a href="Instellingen.html">
+        <span class="nav-icon-settings">⚙️</span>
+      </a>
+    </header>
+
+    <main class="settings-main">
+      <!-- SECTIE 1: MELDINGEN -->
+      <section class="settings-section">
+        <h2 data-i18n="notifications">🔔 Meldingen</h2>
+
+        <div class="settings-row">
+          <div>
+            <p class="settings-label" data-i18n="push_notifications">Push-meldingen</p>
+            <p class="settings-desc" data-i18n="push_desc">Ontvang herinneringen op je telefoon</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-push" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <p class="settings-label" data-i18n="bp_measure">Bloeddruk meten</p>
+            <p class="settings-desc" data-i18n="bp_desc">Dagelijkse herinnering om te meten</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-bloeddruk" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-sub" id="tijd-bloeddruk">
+          <label for="tijd-bd" data-i18n="time_label">Tijdstip</label>
+          <input type="time" id="tijd-bd" value="08:00" />
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <p class="settings-label" data-i18n="medicine">Medicijnen innemen</p>
+            <p class="settings-desc" data-i18n="medicine_desc">Herinnering voor je medicatie</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-medicijnen" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-sub" id="tijd-medicijnen">
+          <label for="tijd-med" data-i18n="time_label">Tijdstip</label>
+          <input type="time" id="tijd-med" value="09:00" />
+        </div>
+      </section>
+
+      <!-- SECTIE 2: TAAL -->
+      <section class="settings-section">
+        <h2 data-i18n="language">🌍 Taal</h2>
+
+        <div class="settings-row">
+          <div>
+            <p class="settings-label" data-i18n="language">Taal van de app</p>
+            <p class="settings-desc" data-i18n="language_desc">Kies je voorkeurstaal</p>
+          </div>
+
+          <select id="taal-keuze" class="settings-select">
+            <option value="nl">🇳🇱 Nederlands</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- SECTIE 3: THEMA -->
+      <section class="settings-section">
+        <h2 data-i18n="theme">🌙 Thema</h2>
+
+        <div class="settings-row">
+          <div>
+            <p class="settings-label" data-i18n="dark_mode">Donker thema</p>
+            <p class="settings-desc" data-i18n="dark_mode_desc">Schakel over naar dark mode</p>
+          </div>
+
+          <label class="toggle">
+            <input type="checkbox" id="toggle-donker" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <button id="opslaan-btn" class="btn-primary" data-i18n="save">Opslaan</button>
+    </main>
+
+    <footer>
+      <nav class="Bottom-nav">
+        <a href="../index.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="dashboard">Dashboard</span>
+        </a>
+
+        <a href="Toevoegen.html">
+          <span class="nav-icon">➕</span>
+          <span class="nav-label" data-i18n="add">Toevoegen</span>
+        </a>
+
+        <a href="MeetGeschiedenis.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="history">Geschiedenis</span>
+        </a>
+      </nav>
+    </footer>
+  </body>
+</html>

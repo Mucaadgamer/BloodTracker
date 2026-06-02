@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="history">Meetgeschiedenis</title>
+
+    <!-- JUISTE RELATIEVE PADEN -->
+    <link rel="stylesheet" href="../Css/Meetgeschiedenis.css" />
+    <link rel="stylesheet" href="../Css/Instellingen.css" />
+
+    <script src="../Javascript/translate.js" defer></script>
+    <script src="../Javascript/instellingen.js" defer></script>
+    <script src="../Javascript/script.js" defer></script>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="header-left">
+        <span class="app-logo">💙</span>
+        <h1 class="app-titel">PulseWatch</h1>
+      </div>
+
+      <!-- RELATIEF PAD -->
+      <a href="Instellingen.html">
+        <span class="nav-icon-settings">⚙️</span>
+      </a>
+    </header>
+
+    <main class="main-content">
+      <div id="geschiedenis-lijst">
+        <p class="leeg-tekst" data-i18n="no_measurements">Nog geen metingen.</p>
+      </div>
+
+      <div id="paginatie" class="paginatie"></div>
+    </main>
+
+    <footer>
+      <nav class="Bottom-nav">
+        <!-- RELATIEVE PADEN, GEEN /public/ -->
+        <a href="../index.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="dashboard">Dashboard</span>
+        </a>
+
+        <a href="Toevoegen.html">
+          <span class="nav-icon">➕</span>
+          <span class="nav-label" data-i18n="add">Toevoegen</span>
+        </a>
+
+        <a href="MeetGeschiedenis.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="history">Geschiedenis</span>
+        </a>
+      </nav>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const prefs = JSON.parse(localStorage.getItem('pulsewatch_prefs') || '{}');
+
+        document.documentElement.setAttribute(
+          'data-theme',
+          prefs.donker ? 'dark' : 'light'
+        );
+
+        if (prefs.taal) {
+          document.documentElement.lang = prefs.taal;
+          await loadLanguage(prefs.taal);
+        }
+      });
+    </script>
+  </body>
+</html>
