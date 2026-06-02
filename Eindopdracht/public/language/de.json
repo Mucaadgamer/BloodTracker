@@ -1,0 +1,40 @@
+{
+  "settings_title": "Einstellungen",
+
+  "notifications": "🔔 Benachrichtigungen",
+  "push_notifications": "Push-Benachrichtigungen",
+  "push_desc": "Erhalte Erinnerungen auf deinem Telefon",
+
+  "bp_measure": "Blutdruck messen",
+  "bp_desc": "Tägliche Erinnerung zum Messen",
+
+  "medicine": "Medikamente einnehmen",
+  "medicine_desc": "Erinnerung für deine Medikamente",
+
+  "language": "🌍 Sprache",
+  "language_desc": "Wähle deine bevorzugte Sprache",
+
+  "theme": "🌙 Thema",
+  "dark_mode": "Dunkles Thema",
+
+  "save": "Speichern",
+  "saved": "Gespeichert!",
+
+  "history_title": "Messverlauf",
+  "no_measurements": "Noch keine Messungen.",
+
+  "dashboard": "Dashboard",
+  "add": "Hinzufügen",
+  "history": "Verlauf",
+
+  "sys": "Systolisch",
+  "dia": "Diastolisch",
+  "pulse": "Puls",
+
+  "recent_measurements": "Neueste Messungen",
+  "date_time": "Datum & Uhrzeit",
+
+  "note_optional": "Notiz (optional)",
+  "note_placeholder": "Notiz hinzufügen...",
+  "added_success": "Messung hinzugefügt!"
+}

@@ -1,0 +1,40 @@
+{
+  "settings_title": "Instellingen",
+
+  "notifications": "🔔 Meldingen",
+  "push_notifications": "Push-meldingen",
+  "push_desc": "Ontvang herinneringen op je telefoon",
+
+  "bp_measure": "Bloeddruk meten",
+  "bp_desc": "Dagelijkse herinnering om te meten",
+
+  "medicine": "Medicijnen innemen",
+  "medicine_desc": "Herinnering voor je medicatie",
+
+  "language": "🌍 Taal",
+  "language_desc": "Kies je voorkeurstaal",
+
+  "theme": "🌙 Thema",
+  "dark_mode": "Donker thema",
+
+  "save": "Opslaan",
+  "saved": "Opgeslagen!",
+
+  "history_title": "Meetgeschiedenis",
+  "no_measurements": "Nog geen metingen.",
+
+  "dashboard": "Dashboard",
+  "add": "Toevoegen",
+  "history": "Meetgeschiedenis",
+
+  "sys": "Systolisch",
+  "dia": "Diastolisch",
+  "pulse": "Pols",
+
+  "recent_measurements": "Recente metingen",
+  "date_time": "Datum & tijd",
+
+  "note_optional": "Notitie (optioneel)",
+  "note_placeholder": "Voeg een notitie toe...",
+  "added_success": "Meting succesvol toegevoegd!"
+}

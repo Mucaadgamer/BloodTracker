@@ -1,0 +1,40 @@
+{
+  "settings_title": "Settings",
+
+  "notifications": "🔔 Notifications",
+  "push_notifications": "Push notifications",
+  "push_desc": "Receive reminders on your phone",
+
+  "bp_measure": "Measure blood pressure",
+  "bp_desc": "Daily reminder to measure",
+
+  "medicine": "Take medication",
+  "medicine_desc": "Reminder for your medication",
+
+  "language": "🌍 Language",
+  "language_desc": "Choose your preferred language",
+
+  "theme": "🌙 Theme",
+  "dark_mode": "Dark mode",
+
+  "save": "Save",
+  "saved": "Saved!",
+
+  "history_title": "Measurement history",
+  "no_measurements": "No measurements yet.",
+
+  "dashboard": "Dashboard",
+  "add": "Add",
+  "history": "History",
+
+  "sys": "Systolic",
+  "dia": "Diastolic",
+  "pulse": "Pulse",
+
+  "recent_measurements": "Recent measurements",
+  "date_time": "Date & time",
+
+  "note_optional": "Note (optional)",
+  "note_placeholder": "Add a note...",
+  "added_success": "Measurement added!"
+}
