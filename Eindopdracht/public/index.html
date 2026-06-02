@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="dashboard">Dashboard</title>
+
+    <link rel="stylesheet" href="Css/style.css" />
+    <link rel="stylesheet" href="Css/Instellingen.css" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <script src="Javascript/translate.js" defer></script>
+    <script src="Javascript/instellingen.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Javascript/script.js" defer></script>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="header-left">
+        <span class="app-logo">💙</span>
+        <h1 class="app-titel">PulseWatch</h1>
+      </div>
+
+      <a href="Pages/Instellingen.html">
+        <span class="nav-icon-settings">⚙️</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="cards">
+        <div class="card">
+          <p id="gem-sys">--</p>
+          <p data-i18n="sys">Systolisch</p>
+        </div>
+        <div class="card">
+          <p id="gem-dia">--</p>
+          <p data-i18n="dia">Diastolisch</p>
+        </div>
+        <div class="card">
+          <p id="gem-pols">--</p>
+          <p data-i18n="pulse">Pols</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="sectie-titel" data-i18n="recent_measurements">
+          Recente metingen
+        </h2>
+        <div id="recente-lijst"></div>
+      </section>
+    </main>
+
+    <footer>
+      <nav class="Bottom-nav">
+        <a href="index.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="dashboard">Dashboard</span>
+        </a>
+
+        <a href="Pages/Toevoegen.html">
+          <span class="nav-icon">➕</span>
+          <span class="nav-label" data-i18n="add">Toevoegen</span>
+        </a>
+
+        <a href="Pages/MeetGeschiedenis.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="history">Geschiedenis</span>
+        </a>
+      </nav>
+    </footer>
+
+    <div
+      id="desktop-overlay"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 1);
+        z-index: 9999;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        color: white;
+        text-align: center;
+        padding: 40px;
+      "
+    >
+      <div style="font-size: 64px">📱</div>
+      <h1 style="font-size: 24px; font-weight: 800; color: #4be885">
+        PulseWatch is voor mobiel
+      </h1>
+      <p style="color: #94a3b8; max-width: 360px; line-height: 1.6">
+        Scan de QR-code met je telefoon om de app te openen. Je kunt hem daarna
+        installeren als app op je homescreen.
+      </p>
+      <img
+        id="desktop-qr"
+        src=""
+        alt="QR-code"
+        style="
+          width: 180px;
+          height: 180px;
+          border-radius: 16px;
+          background: white;
+          padding: 12px;
+        "
+      />
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 20px 28px;
+          max-width: 360px;
+        "
+      >
+        <p style="font-weight: 700; color: #4ade80; margin-bottom: 12px">
+          Hoe installeer je PulseWatch?
+        </p>
+        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px">
+          <strong style="color: white">iPhone / Safari:</strong><br />
+          Tik op het deel-icoon ⬆️ → 'Zet op beginscherm'
+        </p>
+        <p style="font-size: 13px; color: #cbd5e1">
+          <strong style="color: white">Android / Chrome:</strong><br />
+          Tik op de drie puntjes ⋮ → 'Toevoegen aan startscherm'
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const prefs = JSON.parse(
+          localStorage.getItem('pulsewatch_prefs') || '{}'
+        );
+
+        document.documentElement.setAttribute(
+          'data-theme',
+          prefs.donker ? 'dark' : 'light'
+        );
+
+        if (prefs.taal) {
+          document.documentElement.lang = prefs.taal;
+          await loadLanguage(prefs.taal);
+        }
+      });
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then(() => console.log('Service Worker geregistreerd'))
+          .catch((err) => console.error('SW fout:', err));
+      }
+    </script>
+  </body>
+</html>
