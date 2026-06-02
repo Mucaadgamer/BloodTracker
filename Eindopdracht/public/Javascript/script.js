@@ -234,3 +234,42 @@ if (document.getElementById('geschiedenis-lijst')) {
   laadGeschiedenispagina();
 }
 
+function controleerDesktop() {
+  const overlay = document.getElementById('desktop-overlay');
+  if (!overlay) return;
+
+  // Detecteer mobiel via user-agent
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    overlay.style.display = 'none';
+    return;
+  }
+
+  // Desktop → overlay tonen
+  if (window.innerWidth > 800) {
+    overlay.style.display = 'flex';
+
+    // QR-code naar de huidige pagina-URL
+    const url = encodeURIComponent(window.location.href);
+    const qr = document.getElementById('desktop-qr');
+    if (qr) {
+      qr.src =
+        'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + url;
+    }
+  } else {
+    overlay.style.display = 'none';
+  }
+}
+
+controleerDesktop();
+window.addEventListener('resize', controleerDesktop);
+
+document.querySelectorAll('[data-nav]').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = this.getAttribute('href');
+        window.location.href = target;
+    });
+});
+
+
