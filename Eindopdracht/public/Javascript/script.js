@@ -63,3 +63,68 @@ function verwerkFormulier(event) {
   }
 }
 
+// ─── DASHBOARD ───────────────────────────────────────
+
+function gemiddelde(arr) {
+  if (arr.length === 0) return '--';
+  const som = arr.reduce((t, v) => t + v, 0);
+  return Math.round(som / arr.length);
+}
+
+function formateerDatum(datumString) {
+  const d = new Date(datumString);
+  return (
+    d.toLocaleDateString('nl-NL', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+    }) +
+    ', ' +
+    d.toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  );
+}
+
+function maakMetingHTML(meting) {
+  return `
+    <div class="meting-item">
+      <div>
+        <p class="meting-waarden">
+          ${meting.systolisch}/${meting.diastolisch} mmHg · ${meting.pols} bpm
+        </p>
+        ${meting.notitie ? `<p class="meting-notitie">${meting.notitie}</p>` : ''}
+      </div>
+      <p class="meting-datum">${formateerDatum(meting.datum)}</p>
+    </div>
+  `;
+}
+
+function updateDashboard() {
+  const metingen = laadMetingen();
+
+  const sys = metingen.map((m) => m.systolisch);
+  const dia = metingen.map((m) => m.diastolisch);
+  const pols = metingen.map((m) => m.pols);
+
+  if (document.getElementById('gem-sys')) {
+    document.getElementById('gem-sys').textContent = gemiddelde(sys);
+    document.getElementById('gem-dia').textContent = gemiddelde(dia);
+    document.getElementById('gem-pols').textContent = gemiddelde(pols);
+  }
+
+  const lijstEl = document.getElementById('recente-lijst');
+  if (!lijstEl) return;
+
+  if (metingen.length === 0) {
+    lijstEl.innerHTML =
+      '<p class="leeg-tekst">Nog geen metingen. Voeg je eerste meting toe!</p>';
+    return;
+  }
+
+  const recentste = [...metingen].sort((a, b) => b.id - a.id).slice(0, 2);
+
+  lijstEl.innerHTML = recentste.map(maakMetingHTML).join('');
+}
+
