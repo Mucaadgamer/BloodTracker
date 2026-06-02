@@ -128,3 +128,109 @@ function updateDashboard() {
   lijstEl.innerHTML = recentste.map(maakMetingHTML).join('');
 }
 
+// ─── INITIALISATIE ────────────────────────────────────
+
+const formulier = document.getElementById('meting-formulier');
+if (formulier) {
+  stelDatumIn();
+  formulier.addEventListener('submit', verwerkFormulier);
+}
+
+if (document.getElementById('gem-sys')) {
+  updateDashboard();
+}
+
+// ─── GESCHIEDENIS ─────────────────────────────────────
+
+function bloeddrukStatus(sys, dia) {
+  const lang = document.documentElement.lang || 'nl';
+
+  const labels = {
+    nl: ['Optimaal', 'Normaal', 'Hoog-normaal', 'Te hoog'],
+    en: ['Optimal', 'Normal', 'High-normal', 'Too high'],
+    de: ['Optimal', 'Normal', 'Hoch-normal', 'Zu hoch'],
+  };
+
+  let index = 3;
+  if (sys < 120 && dia < 80) index = 0;
+  else if (sys < 130 && dia < 85) index = 1;
+  else if (sys < 140 && dia < 90) index = 2;
+
+  return {
+    label: labels[lang][index],
+    kleur: ['#16a34a', '#2d8c5a', '#d97706', '#dc2626'][index],
+  };
+}
+
+function maakGeschiedenisItemHTML(meting) {
+  const status = bloeddrukStatus(meting.systolisch, meting.diastolisch);
+  return `
+    <div class="geschiedenis-item">
+      <div class="geschiedenis-links">
+        <p class="meting-waarden">
+          ${meting.systolisch}/${meting.diastolisch} mmHg · ${meting.pols} bpm
+        </p>
+        <p class="meting-datum">${formateerDatum(meting.datum)}</p>
+        ${meting.notitie ? `<p class="meting-notitie">📝 ${meting.notitie}</p>` : ''}
+      </div>
+      <div class="geschiedenis-rechts">
+        <span class="status-badge" style="color:${status.kleur}">
+          ${status.label}
+        </span>
+        <button class="verwijder-knop" onclick="verwijderEnHerlaad(${meting.id})">🗑️</button>
+      </div>
+    </div>
+  `;
+}
+
+function laadGeschiedenispagina() {
+  const metingen = laadMetingen().sort((a, b) => b.id - a.id);
+  const lijst = document.getElementById('geschiedenis-lijst');
+  const badge = document.getElementById('totaal-badge');
+
+  if (!lijst) return;
+
+  if (badge) badge.textContent = metingen.length + ' metingen';
+
+  if (metingen.length === 0) {
+    lijst.innerHTML = '<p class="leeg-tekst">Nog geen metingen.</p>';
+    document.getElementById('paginatie').innerHTML = '';
+    return;
+  }
+
+  const totaalPaginas = Math.ceil(metingen.length / ITEMS_PER_PAGINA);
+  if (huidigePagina > totaalPaginas) huidigePagina = totaalPaginas;
+
+  const start = (huidigePagina - 1) * ITEMS_PER_PAGINA;
+  const einde = start + ITEMS_PER_PAGINA;
+  const paginaMetingen = metingen.slice(start, einde);
+
+  lijst.innerHTML = paginaMetingen.map(maakGeschiedenisItemHTML).join('');
+
+  document.getElementById('paginatie').innerHTML = `
+    <button ${huidigePagina === 1 ? 'disabled' : ''} onclick="vorigePagina()">Vorige</button>
+    <span>Pagina ${huidigePagina} van ${totaalPaginas}</span>
+    <button ${huidigePagina === totaalPaginas ? 'disabled' : ''} onclick="volgendePagina()">Volgende</button>
+  `;
+}
+
+function volgendePagina() {
+  huidigePagina++;
+  laadGeschiedenispagina();
+}
+
+function vorigePagina() {
+  huidigePagina--;
+  laadGeschiedenispagina();
+}
+
+function verwijderEnHerlaad(id) {
+  if (!confirm('Weet je zeker dat je deze meting wilt verwijderen?')) return;
+  verwijderMeting(id);
+  laadGeschiedenispagina();
+}
+
+if (document.getElementById('geschiedenis-lijst')) {
+  laadGeschiedenispagina();
+}
+
