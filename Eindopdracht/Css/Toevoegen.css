@@ -1,77 +1,164 @@
+/* =========================================
+   BASIS
+   ========================================= */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background-color: #f4f4f4;
-    min-height: 100vh;
-    padding-bottom: 72px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: var(--bg);
+  min-height: 100vh;
+  padding-bottom: 72px;
 }
 
+/* =========================================
+   HEADER
+   ========================================= */
+
 .app-header {
-    background-color: #139ed0;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .app-logo {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .app-titel {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-select {
-    padding: 5px;
-    font-size: 20px;
-    border: none;
-    border-radius: 4px;
-    display: flex;
+.nav-icon-settings {
+  font-size: 40px;
+  color: white;
+  text-decoration: none;
 }
 
-/* ====== MIDDEN (PAGINA CONTENT HIER) ====== */
+.app-header a {
+  text-decoration: none;
+  color: inherit;
+}
 
+/* =========================================
+   FORM (DONKER IN DARK MODE)
+   ========================================= */
 
+.meet-formulier {
+  margin: 20px;
+  background: var(--card-bg); /* donker in dark mode */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
+/* =========================================
+   LABELS
+   ========================================= */
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text); /* wit in dark mode */
+}
+
+/* =========================================
+   INPUTS (ALTIJD WIT)
+   ========================================= */
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #139ed0;
+  border-radius: 6px;
+  outline: none;
+
+  background-color: #ffffff !important; /* ALTIJD WIT */
+  color: #000000 !important;            /* zwarte tekst */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #0d7aa5;
+}
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.submit-button {
+  background-color: var(--accent);
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0d7aa5;
+}
+
+/* =========================================
+   SUCCES BERICHT
+   ========================================= */
+
+.succes-bericht {
+  background-color: #d4f8d4;
+  color: #0a7a0a;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* =========================================
+   NAVBAR (DONKER IN DARK MODE)
+   ========================================= */
 
 .Bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #139ed0;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--navbar-bg);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
 }
 
 .Bottom-nav a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .nav-icon {
-    font-size: 24px;
-    align-self: center;
+  font-size: 24px;
+  align-self: center;
 }
 
 .Bottom-nav a.active {
-    color: #000000;
-    font-weight: bold;
+  color: #000000;
+  font-weight: bold;
 }

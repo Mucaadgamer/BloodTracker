@@ -8,6 +8,9 @@
     <!-- JUISTE RELATIEVE PADEN -->
     <link rel="stylesheet" href="../Css/Toevoegen.css" />
     <link rel="stylesheet" href="../Css/Instellingen.css" />
+    <link rel="stylesheet" href="../Css/Theme.css" />
+
+    <link rel="icon" href="../images/favicon.ico">
 
     <script src="../Javascript/translate.js" defer></script>
     <script src="../Javascript/instellingen.js" defer></script>
@@ -21,7 +24,6 @@
         <h1 class="app-titel">PulseWatch</h1>
       </div>
 
-      <!-- RELATIEF PAD, GEEN /public/ -->
       <a href="Instellingen.html">
         <span class="nav-icon-settings">⚙️</span>
       </a>
@@ -71,7 +73,7 @@
           <span class="nav-label" data-i18n="dashboard">Dashboard</span>
         </a>
 
-        <a href="Toevoegen.html">
+        <a href="Toevoegen.html" class="active">
           <span class="nav-icon">➕</span>
           <span class="nav-label" data-i18n="add">Toevoegen</span>
         </a>
@@ -97,6 +99,11 @@
           await loadLanguage(prefs.taal);
         }
       });
+
+  const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+  if (prefs.donker) {
+    document.documentElement.classList.add("dark");
+  }
     </script>
   </body>
 </html>

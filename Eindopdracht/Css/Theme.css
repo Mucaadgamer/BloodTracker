@@ -1,0 +1,126 @@
+/* =========================================
+   THEMA VARIABELEN (LICHT + DONKER)
+   ========================================= */
+
+:root {
+  --bg: #f4f4f4;
+  --card-bg: #ffffff;
+  --text: #000000;
+  --accent: #139ed0;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --navbar-bg: #139ed0;
+}
+
+.dark {
+  --bg: #0d1117;
+  --card-bg: #161b22;
+  --text: #ffffff;
+  --accent: #58a6ff;
+  --input-bg: #0f172a;
+  --input-border: #334155;
+  --navbar-bg: #111827;
+}
+
+/* =========================================
+   BASIS OP ALLE PAGINA'S
+   ========================================= */
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 72px;
+}
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.Bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--navbar-bg);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.Bottom-nav a {
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Bottom-nav a.active {
+  font-weight: bold;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.app-header {
+  background-color: var(--accent);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-icon-settings,
+.nav-icon {
+  color: #fff;
+}
+
+/* =========================================
+   KAARTEN / BLOKKEN
+   ========================================= */
+
+.card,
+.meting-item,
+.geschiedenis-item,
+.settings-section,
+.form-card {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   TEKSTEN
+   ========================================= */
+
+h1, h2, h3, p, label, span {
+  color: var(--text);
+}
+
+/* =========================================
+   INPUTS / FORMULIEREN
+   ========================================= */
+
+input[type="text"],
+input[type="number"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  background-color: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--input-border);
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}

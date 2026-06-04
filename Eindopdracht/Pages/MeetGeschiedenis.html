@@ -8,6 +8,9 @@
     <!-- JUISTE RELATIEVE PADEN -->
     <link rel="stylesheet" href="../Css/Meetgeschiedenis.css" />
     <link rel="stylesheet" href="../Css/Instellingen.css" />
+    <link rel="stylesheet" href="../Css/Theme.css" />
+
+    <link rel="icon" href="../images/favicon.ico">
 
     <script src="../Javascript/translate.js" defer></script>
     <script src="../Javascript/instellingen.js" defer></script>
@@ -21,13 +24,22 @@
         <h1 class="app-titel">PulseWatch</h1>
       </div>
 
-      <!-- RELATIEF PAD -->
       <a href="Instellingen.html">
         <span class="nav-icon-settings">⚙️</span>
       </a>
     </header>
 
     <main class="main-content">
+
+<div class="filter-container">
+<button class="filter-btn" data-filter="vandaag" data-i18n="filter_today">Vandaag</button>
+<button class="filter-btn" data-filter="week" data-i18n="filter_week">Deze week</button>
+<button class="filter-btn" data-filter="maand" data-i18n="filter_month">Deze maand</button>
+<button class="filter-btn active" data-filter="alles" data-i18n="filter_all">Alles</button>
+
+</div>
+
+
       <div id="geschiedenis-lijst">
         <p class="leeg-tekst" data-i18n="no_measurements">Nog geen metingen.</p>
       </div>
@@ -37,7 +49,6 @@
 
     <footer>
       <nav class="Bottom-nav">
-        <!-- RELATIEVE PADEN, GEEN /public/ -->
         <a href="../index.html">
           <span class="nav-icon">🏠</span>
           <span class="nav-label" data-i18n="dashboard">Dashboard</span>
@@ -48,7 +59,7 @@
           <span class="nav-label" data-i18n="add">Toevoegen</span>
         </a>
 
-        <a href="MeetGeschiedenis.html">
+        <a href="MeetGeschiedenis.html" class="active">
           <span class="nav-icon">📊</span>
           <span class="nav-label" data-i18n="history">Geschiedenis</span>
         </a>
@@ -69,6 +80,12 @@
           await loadLanguage(prefs.taal);
         }
       });
+
+  const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+  if (prefs.donker) {
+    document.documentElement.classList.add("dark");
+  }
+</script>
     </script>
   </body>
 </html>

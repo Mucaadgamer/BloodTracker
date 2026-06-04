@@ -25,7 +25,7 @@
 
   "dashboard": "Dashboard",
   "add": "Toevoegen",
-  "history": "Meetgeschiedenis",
+  "history": "Geschiedenis",
 
   "sys": "Systolisch",
   "dia": "Diastolisch",
@@ -36,5 +36,18 @@
 
   "note_optional": "Notitie (optioneel)",
   "note_placeholder": "Voeg een notitie toe...",
-  "added_success": "Meting succesvol toegevoegd!"
+  "added_success": "Meting succesvol toegevoegd!",
+
+  "filter_today": "Vandaag",
+  "filter_week": "Deze week",
+  "filter_month": "Deze maand",
+  "filter_all": "Alles",
+
+  "previous": "Vorige",
+  "next": "Volgende",
+
+  "status_optimal": "Optimaal",
+  "status_normal": "Normaal",
+  "status_high_normal": "Hoog-normaal",
+  "status_too_high": "Te hoog"
 }

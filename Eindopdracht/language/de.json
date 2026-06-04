@@ -36,5 +36,18 @@
 
   "note_optional": "Notiz (optional)",
   "note_placeholder": "Notiz hinzufügen...",
-  "added_success": "Messung hinzugefügt!"
+  "added_success": "Messung hinzugefügt!",
+
+  "filter_today": "Heute",
+  "filter_week": "Diese Woche",
+  "filter_month": "Dieser Monat",
+  "filter_all": "Alle",
+
+  "previous": "Zurück",
+  "next": "Weiter",
+
+  "status_optimal": "Optimal",
+  "status_normal": "Normal",
+  "status_high_normal": "Hoch-normal",
+  "status_too_high": "Zu hoch"
 }

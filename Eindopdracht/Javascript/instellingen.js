@@ -7,7 +7,7 @@ const standaard = {
   medicijnen: false,
   tijdMedicijnen: "09:00",
   taal: "nl",
-  donker: false
+  donker: false,
 };
 
 function laadPrefs() {
@@ -24,26 +24,22 @@ function slaPrefsOp(prefs) {
 }
 
 async function vulFormulier(prefs) {
-  document.getElementById("toggle-push").checked       = prefs.push;
-  document.getElementById("toggle-bloeddruk").checked  = prefs.bloeddruk;
+  document.getElementById("toggle-push").checked = prefs.push;
+  document.getElementById("toggle-bloeddruk").checked = prefs.bloeddruk;
   document.getElementById("toggle-medicijnen").checked = prefs.medicijnen;
-  document.getElementById("tijd-bd").value             = prefs.tijdBloeddruk;
-  document.getElementById("tijd-med").value            = prefs.tijdMedicijnen;
-  document.getElementById("taal-keuze").value          = prefs.taal;
-  document.getElementById("toggle-donker").checked     = prefs.donker;
+  document.getElementById("tijd-bd").value = prefs.tijdBloeddruk;
+  document.getElementById("tijd-med").value = prefs.tijdMedicijnen;
+  document.getElementById("taal-keuze").value = prefs.taal;
+  document.getElementById("toggle-donker").checked = prefs.donker;
 
   document.getElementById("tijd-bloeddruk").style.display =
     prefs.bloeddruk ? "flex" : "none";
   document.getElementById("tijd-medicijnen").style.display =
     prefs.medicijnen ? "flex" : "none";
 
-  // DARK MODE ACTIVEREN
-  document.documentElement.setAttribute(
-    "data-theme",
-    prefs.donker ? "dark" : "light"
-  );
+  // THEMA BIJ LADEN (INSTELLINGEN PAGINA)
+  document.documentElement.classList.toggle("dark", prefs.donker);
 
-  // TAAL LADEN
   await loadLanguage(prefs.taal);
 }
 
@@ -74,12 +70,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       e.target.checked ? "flex" : "none";
   });
 
-  // DONKER THEMA
+  // LIVE THEMA PREVIEW (ALLEEN OP DEZE PAGINA)
   document.getElementById("toggle-donker").addEventListener("change", (e) => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      e.target.checked ? "dark" : "light"
-    );
+    document.documentElement.classList.toggle("dark", e.target.checked);
   });
 
   // TAAL
@@ -92,16 +85,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   // OPSLAAN
   document.getElementById("opslaan-btn").addEventListener("click", async () => {
     const nieuwePrefs = {
-      push:           document.getElementById("toggle-push").checked,
-      bloeddruk:      document.getElementById("toggle-bloeddruk").checked,
-      tijdBloeddruk:  document.getElementById("tijd-bd").value,
-      medicijnen:     document.getElementById("toggle-medicijnen").checked,
+      push: document.getElementById("toggle-push").checked,
+      bloeddruk: document.getElementById("toggle-bloeddruk").checked,
+      tijdBloeddruk: document.getElementById("tijd-bd").value,
+      medicijnen: document.getElementById("toggle-medicijnen").checked,
       tijdMedicijnen: document.getElementById("tijd-med").value,
-      taal:           document.getElementById("taal-keuze").value,
-      donker:         document.getElementById("toggle-donker").checked
+      taal: document.getElementById("taal-keuze").value,
+      donker: document.getElementById("toggle-donker").checked,
     };
 
     slaPrefsOp(nieuwePrefs);
+
     await loadLanguage(nieuwePrefs.taal);
 
     const knop = document.getElementById("opslaan-btn");

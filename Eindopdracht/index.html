@@ -1,77 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PulseWatch – Dashboard</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <link rel="stylesheet" href="Css/style.css" />
+    <link rel="stylesheet" href="Css/Theme.css" />
+    <link rel="icon" href="Images/favicon.ico">
 
-    <link rel="stylesheet" href="Css/style.css">
+    <script src="Javascript/translate.js" defer></script>
+    <script src="Javascript/script.js" defer></script>
+  </head>
 
-    <!-- GOOGLE TRANSLATE SCRIPT -->
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-</head>
-
-<body>
-
+  <body>
     <header class="app-header">
-        <div class="header-left">
-            <span class="app-logo">💙</span>
-            <h1 class="app-titel">PulseWatch</h1>
-        </div>
+      <div class="header-left">
+        <span class="app-logo">💙</span>
+        <h1 class="app-titel">PulseWatch</h1>
+      </div>
 
-        <select name="language" id="languageselect">
-        <option value="Nederlands">🇳🇱</option>
-        <option value="English">🇬🇧</option>
-    </select>
+      <a href="Pages/Instellingen.html">
+        <span class="nav-icon-settings">⚙️</span>
+      </a>
     </header>
 
     <main>
-        <section class="cards">
-            <div class="card">
-                <p>Sys</p>
-                <p>Systolisch</p>
-            </div>
-            <div class="card">
-                <p>Dia</p>
-                <p>Diastolisch</p>
-            </div>
-            <div class="card">
-                <p>gem-pols</p>
-                <p>Pols</p>
-            </div>
-        </section>
 
-        <section>
-            <div class="grafiek">
-                <h2 class="sectie-titel">Bloeddruk verloop (Laatste 7 dagen)</h2>
-                <canvas id="Chart"></canvas>
-            </div>
-        </section>
+      <!-- MEEST RECENTE METING (3 CARDS) -->
+      <section class="cards">
+        <div class="card">
+          <p id="laatste-sys">--</p>
+          <p data-i18n="sys">Systolisch</p>
+        </div>
+
+        <div class="card">
+          <p id="laatste-dia">--</p>
+          <p data-i18n="dia">Diastolisch</p>
+        </div>
+
+        <div class="card">
+          <p id="laatste-pols">--</p>
+          <p data-i18n="pulse">Pols</p>
+        </div>
+      </section>
+
+      <!-- RECENTE METINGEN -->
+      <section>
+        <h2 class="sectie-titel" data-i18n="recent_measurements">Recente metingen</h2>
+        <div id="recente-lijst"></div>
+      </section>
+
     </main>
 
     <footer>
-        <nav class="Bottom-nav">
-            <a href="index.html" class="active">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">Dashboard</span>
-            </a>
-            <a href="Pages/Toevoegen.html">
-                <span class="nav-icon">➕</span>
-                <span class="nav-label">Toevoegen</span>
-            </a>
-            <a href="Pages/MeetGeschiedenis.html">
-                <span class="nav-icon">📊</span>
-                <span class="nav-label">Meetgeschiedenis</span>
-            </a>
-            <a href="Pages/Instellingen.html">
-                <span class="nav-icon">⚙️</span>
-                <span class="nav-label">Instellingen</span>
-            </a>
+      <nav class="Bottom-nav">
+        <a href="index.html" class="active">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="dashboard">Dashboard</span>
+        </a>
 
-        </nav>
+        <a href="Pages/Toevoegen.html">
+          <span class="nav-icon">➕</span>
+          <span class="nav-label" data-i18n="add">Toevoegen</span>
+        </a>
+
+        <a href="Pages/MeetGeschiedenis.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="history">Geschiedenis</span>
+        </a>
+      </nav>
     </footer>
-</body>
 
+    <script>
+      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      if (prefs.donker) {
+        document.documentElement.classList.add("dark");
+      }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+  const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+
+  // taal instellen
+  if (prefs.taal) {
+    document.documentElement.lang = prefs.taal;
+    await loadLanguage(prefs.taal);
+  }
+
+  // dark mode instellen
+  if (prefs.donker) {
+    document.documentElement.classList.add("dark");
+  }
+});
+
+    </script>
+
+  </body>
 </html>

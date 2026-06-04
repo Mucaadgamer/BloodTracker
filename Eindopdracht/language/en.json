@@ -36,5 +36,18 @@
 
   "note_optional": "Note (optional)",
   "note_placeholder": "Add a note...",
-  "added_success": "Measurement added!"
+  "added_success": "Measurement added!",
+
+  "filter_today": "Today",
+  "filter_week": "This week",
+  "filter_month": "This month",
+  "filter_all": "All",
+
+  "previous": "Previous",
+  "next": "Next",
+
+  "status_optimal": "Optimal",
+  "status_normal": "Normal",
+  "status_high_normal": "High-normal",
+  "status_too_high": "Too high"
 }

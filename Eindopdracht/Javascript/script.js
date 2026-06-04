@@ -2,6 +2,7 @@
 const STORAGE_KEY = 'pulsewatch_data';
 let huidigePagina = 1;
 const ITEMS_PER_PAGINA = 4;
+let huidigeFilter = "alles"; // ⭐ NIEUW
 
 // ─── DATA FUNCTIES ────────────────────────────────────
 
@@ -22,8 +23,7 @@ function voegMetingToe(meting) {
 
 function verwijderMeting(id) {
   const metingen = laadMetingen();
-  const gefilterd = metingen.filter((m) => m.id !== id);
-  slaMetingenOp(gefilterd);
+  slaMetingenOp(metingen.filter(m => m.id !== id));
 }
 
 // ─── FORMULIER VERWERKEN ─────────────────────────────
@@ -57,9 +57,9 @@ function verwerkFormulier(event) {
   const melding = document.getElementById('succes-melding');
   if (melding) {
     melding.style.display = 'block';
-    setTimeout(() => {
-      window.location.href = '../index.html';
-    }, 1500);
+    setTimeout(() => window.location.href = '../index.html', 1500);
+  } else {
+    window.location.href = '../index.html';
   }
 }
 
@@ -67,12 +67,13 @@ function verwerkFormulier(event) {
 
 function gemiddelde(arr) {
   if (arr.length === 0) return '--';
-  const som = arr.reduce((t, v) => t + v, 0);
-  return Math.round(som / arr.length);
+  return Math.round(arr.reduce((t, v) => t + v, 0) / arr.length);
 }
 
 function formateerDatum(datumString) {
   const d = new Date(datumString);
+  if (isNaN(d.getTime())) return datumString;
+
   return (
     d.toLocaleDateString('nl-NL', {
       weekday: 'short',
@@ -101,31 +102,44 @@ function maakMetingHTML(meting) {
   `;
 }
 
+// ─── MEEST RECENTE METING (3 CARDS) ───────────────────
+
+function updateLaatsteMeting() {
+  const metingen = laadMetingen();
+  if (metingen.length === 0) return;
+
+  const laatste = metingen.sort((a, b) => b.id - a.id)[0];
+
+  const sysEl = document.getElementById('laatste-sys');
+  const diaEl = document.getElementById('laatste-dia');
+  const polsEl = document.getElementById('laatste-pols');
+
+  if (sysEl) sysEl.textContent = laatste.systolisch;
+  if (diaEl) diaEl.textContent = laatste.diastolisch;
+  if (polsEl) polsEl.textContent = laatste.pols;
+}
+
+// ─── RECENTE METINGEN (ONDERAAN INDEX) ───────────────
+
 function updateDashboard() {
   const metingen = laadMetingen();
 
-  const sys = metingen.map((m) => m.systolisch);
-  const dia = metingen.map((m) => m.diastolisch);
-  const pols = metingen.map((m) => m.pols);
-
   if (document.getElementById('gem-sys')) {
-    document.getElementById('gem-sys').textContent = gemiddelde(sys);
-    document.getElementById('gem-dia').textContent = gemiddelde(dia);
-    document.getElementById('gem-pols').textContent = gemiddelde(pols);
+    document.getElementById('gem-sys').textContent = gemiddelde(metingen.map(m => m.systolisch));
+    document.getElementById('gem-dia').textContent = gemiddelde(metingen.map(m => m.diastolisch));
+    document.getElementById('gem-pols').textContent = gemiddelde(metingen.map(m => m.pols));
   }
 
   const lijstEl = document.getElementById('recente-lijst');
-  if (!lijstEl) return;
+  if (lijstEl) {
+    if (metingen.length === 0) {
+      lijstEl.innerHTML = '<p class="leeg-tekst">Nog geen metingen. Voeg je eerste meting toe!</p>';
+      return;
+    }
 
-  if (metingen.length === 0) {
-    lijstEl.innerHTML =
-      '<p class="leeg-tekst">Nog geen metingen. Voeg je eerste meting toe!</p>';
-    return;
+    const recentste = [...metingen].sort((a, b) => b.id - a.id).slice(0, 2);
+    lijstEl.innerHTML = recentste.map(maakMetingHTML).join('');
   }
-
-  const recentste = [...metingen].sort((a, b) => b.id - a.id).slice(0, 2);
-
-  lijstEl.innerHTML = recentste.map(maakMetingHTML).join('');
 }
 
 // ─── INITIALISATIE ────────────────────────────────────
@@ -136,9 +150,8 @@ if (formulier) {
   formulier.addEventListener('submit', verwerkFormulier);
 }
 
-if (document.getElementById('gem-sys')) {
-  updateDashboard();
-}
+if (document.getElementById('laatste-sys')) updateLaatsteMeting();
+if (document.getElementById('gem-sys') || document.getElementById('recente-lijst')) updateDashboard();
 
 // ─── GESCHIEDENIS ─────────────────────────────────────
 
@@ -167,34 +180,60 @@ function maakGeschiedenisItemHTML(meting) {
   return `
     <div class="geschiedenis-item">
       <div class="geschiedenis-links">
-        <p class="meting-waarden">
-          ${meting.systolisch}/${meting.diastolisch} mmHg · ${meting.pols} bpm
-        </p>
+        <p class="meting-waarden">${meting.systolisch}/${meting.diastolisch} mmHg · ${meting.pols} bpm</p>
         <p class="meting-datum">${formateerDatum(meting.datum)}</p>
         ${meting.notitie ? `<p class="meting-notitie">📝 ${meting.notitie}</p>` : ''}
       </div>
       <div class="geschiedenis-rechts">
-        <span class="status-badge" style="color:${status.kleur}">
-          ${status.label}
-        </span>
+        <span class="status-badge" style="color:${status.kleur}">${status.label}</span>
         <button class="verwijder-knop" onclick="verwijderEnHerlaad(${meting.id})">🗑️</button>
       </div>
     </div>
   `;
 }
 
-function laadGeschiedenispagina() {
-  const metingen = laadMetingen().sort((a, b) => b.id - a.id);
+// ─── FILTER FUNCTIE ─────────────────────────────────────
+
+function filterMetingen(metingen, filter) {
+  const nu = new Date();
+
+  if (filter === "vandaag") {
+    return metingen.filter(m => {
+      const d = new Date(m.datum);
+      return d.toDateString() === nu.toDateString();
+    });
+  }
+
+  if (filter === "week") {
+    const weekStart = new Date(nu);
+    weekStart.setDate(nu.getDate() - nu.getDay());
+    return metingen.filter(m => new Date(m.datum) >= weekStart);
+  }
+
+  if (filter === "maand") {
+    const maandStart = new Date(nu.getFullYear(), nu.getMonth(), 1);
+    return metingen.filter(m => new Date(m.datum) >= maandStart);
+  }
+
+  return metingen;
+}
+
+// ─── GESCHIEDENIS LADEN MET FILTER ─────────────────────
+
+function laadGeschiedenispagina(filter = huidigeFilter) {
+  huidigeFilter = filter;
+
+  let metingen = laadMetingen().sort((a, b) => b.id - a.id);
+  metingen = filterMetingen(metingen, filter);
+
   const lijst = document.getElementById('geschiedenis-lijst');
-  const badge = document.getElementById('totaal-badge');
+  const paginatieEl = document.getElementById('paginatie');
 
   if (!lijst) return;
 
-  if (badge) badge.textContent = metingen.length + ' metingen';
-
   if (metingen.length === 0) {
-    lijst.innerHTML = '<p class="leeg-tekst">Nog geen metingen.</p>';
-    document.getElementById('paginatie').innerHTML = '';
+    lijst.innerHTML = '<p class="leeg-tekst">Geen metingen gevonden.</p>';
+    if (paginatieEl) paginatieEl.innerHTML = '';
     return;
   }
 
@@ -202,17 +241,32 @@ function laadGeschiedenispagina() {
   if (huidigePagina > totaalPaginas) huidigePagina = totaalPaginas;
 
   const start = (huidigePagina - 1) * ITEMS_PER_PAGINA;
-  const einde = start + ITEMS_PER_PAGINA;
-  const paginaMetingen = metingen.slice(start, einde);
+  const paginaMetingen = metingen.slice(start, start + ITEMS_PER_PAGINA);
 
   lijst.innerHTML = paginaMetingen.map(maakGeschiedenisItemHTML).join('');
 
-  document.getElementById('paginatie').innerHTML = `
-    <button ${huidigePagina === 1 ? 'disabled' : ''} onclick="vorigePagina()">Vorige</button>
-    <span>Pagina ${huidigePagina} van ${totaalPaginas}</span>
-    <button ${huidigePagina === totaalPaginas ? 'disabled' : ''} onclick="volgendePagina()">Volgende</button>
-  `;
+  if (paginatieEl) {
+    paginatieEl.innerHTML = `
+      <button ${huidigePagina === 1 ? 'disabled' : ''} onclick="vorigePagina()">Vorige</button>
+      <span>Pagina ${huidigePagina} van ${totaalPaginas}</span>
+      <button ${huidigePagina === totaalPaginas ? 'disabled' : ''} onclick="volgendePagina()">Volgende</button>
+    `;
+  }
 }
+
+// ─── FILTER KNOPPEN ─────────────────────────────────────
+
+document.querySelectorAll(".filter-btn")?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    huidigePagina = 1;
+    laadGeschiedenispagina(btn.dataset.filter);
+  });
+});
+
+// ─── PAGINATIE ─────────────────────────────────────────
 
 function volgendePagina() {
   huidigePagina++;
@@ -234,27 +288,23 @@ if (document.getElementById('geschiedenis-lijst')) {
   laadGeschiedenispagina();
 }
 
+// ─── DESKTOP OVERLAY ──────────────────────────────────
+
 function controleerDesktop() {
   const overlay = document.getElementById('desktop-overlay');
   if (!overlay) return;
 
-  // Detecteer mobiel via user-agent
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
     overlay.style.display = 'none';
     return;
   }
 
-  // Desktop → overlay tonen
   if (window.innerWidth > 800) {
     overlay.style.display = 'flex';
-
-    // QR-code naar de huidige pagina-URL
-    const url = encodeURIComponent(window.location.href);
     const qr = document.getElementById('desktop-qr');
     if (qr) {
-      qr.src =
-        'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + url;
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(window.location.href);
     }
   } else {
     overlay.style.display = 'none';
@@ -264,12 +314,12 @@ function controleerDesktop() {
 controleerDesktop();
 window.addEventListener('resize', controleerDesktop);
 
+// ─── NAVIGATIE VIA data-nav ───────────────────────────
+
 document.querySelectorAll('[data-nav]').forEach(link => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = this.getAttribute('href');
-        window.location.href = target;
-    });
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = this.getAttribute('href');
+    if (target) window.location.href = target;
+  });
 });
-
-
