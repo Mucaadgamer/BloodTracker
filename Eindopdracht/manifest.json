@@ -4,13 +4,13 @@
   "description": "Bijhoud-app voor je bloeddruk, pols en gezondheid.",
   "start_url": "/BloodTracker/Eindopdracht/index.html",
   "id": "/BloodTracker/Eindopdracht/index.html",
+  "scope": "/BloodTracker/Eindopdracht/",
   "display": "standalone",
   "theme_color": "#1e3a8a",
   "background_color": "#ffffff",
   "lang": "nl",
   "orientation": "portrait",
   "display_override": ["standalone", "fullscreen"],
-
   "icons": [
     {
       "src": "/BloodTracker/Eindopdracht/Images/heart_icon_192x192.png",
@@ -25,7 +25,6 @@
       "purpose": "any maskable"
     }
   ],
-
   "screenshots": [
     {
       "src": "/BloodTracker/Eindopdracht/Images/Desktop.png",

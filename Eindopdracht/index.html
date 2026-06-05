@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
@@ -8,14 +8,34 @@
     <!-- ✔ Juiste paden voor subfolder -->
     <link rel="stylesheet" href="/BloodTracker/Eindopdracht/Css/style.css" />
     <link rel="stylesheet" href="/BloodTracker/Eindopdracht/Css/Theme.css" />
-    <link rel="icon" href="/BloodTracker/Eindopdracht/Images/favicon.ico">
+    <link rel="icon" href="/BloodTracker/Eindopdracht/Images/favicon.ico" />
 
+    <!-- PWA manifest — needed on EVERY page -->
+    <link rel="manifest" href="/BloodTracker/Eindopdracht/manifest.json" />
+
+    <!-- Service worker registration — needed on EVERY page -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/BloodTracker/Eindopdracht/sw.js")
+          .then((reg) => console.log("SW registered", reg.scope))
+          .catch((err) => console.error("SW failed", err));
+      }
+    </script>
 
     <!-- ✔ Juiste JS paden -->
-<script src="/BloodTracker/Eindopdracht/Javascript/translate.js" defer></script>
-<script src="/BloodTracker/Eindopdracht/Javascript/instellingen.js" defer></script>
-<script src="/BloodTracker/Eindopdracht/Javascript/script.js" defer></script>
-
+    <script
+      src="/BloodTracker/Eindopdracht/Javascript/translate.js"
+      defer
+    ></script>
+    <script
+      src="/BloodTracker/Eindopdracht/Javascript/instellingen.js"
+      defer
+    ></script>
+    <script
+      src="/BloodTracker/Eindopdracht/Javascript/script.js"
+      defer
+    ></script>
   </head>
 
   <body>
@@ -32,7 +52,6 @@
     </header>
 
     <main>
-
       <!-- MEEST RECENTE METING (3 CARDS) -->
       <section class="cards">
         <div class="card">
@@ -53,10 +72,11 @@
 
       <!-- RECENTE METINGEN -->
       <section>
-        <h2 class="sectie-titel" data-i18n="recent_measurements">Recente metingen</h2>
+        <h2 class="sectie-titel" data-i18n="recent_measurements">
+          Recente metingen
+        </h2>
         <div id="recente-lijst"></div>
       </section>
-
     </main>
 
     <footer>
@@ -79,13 +99,17 @@
     </footer>
 
     <script>
-      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      const prefs = JSON.parse(
+        localStorage.getItem("pulsewatch_prefs") || "{}",
+      );
       if (prefs.donker) {
         document.documentElement.classList.add("dark");
       }
 
       document.addEventListener("DOMContentLoaded", async () => {
-        const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+        const prefs = JSON.parse(
+          localStorage.getItem("pulsewatch_prefs") || "{}",
+        );
 
         if (prefs.taal) {
           document.documentElement.lang = prefs.taal;
@@ -97,6 +121,5 @@
         }
       });
     </script>
-
   </body>
 </html>
