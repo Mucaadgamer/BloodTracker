@@ -1,38 +1,40 @@
-const CACHE_NAME = "pulsewatch-cache-v4";
+const CACHE_NAME = "pulsewatch-cache-v5";
+
+const ROOT = "/BloodTracker/Eindopdracht/";
 
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
+  ROOT,
+  ROOT + "index.html",
+  ROOT + "manifest.json",
 
   // CSS
-  "./Css/style.css",
-  "./Css/Theme.css",
-  "./Css/Instellingen.css",
-  "./Css/Meetgeschiedenis.css",
-  "./Css/Toevoegen.css",
+  ROOT + "Css/style.css",
+  ROOT + "Css/Theme.css",
+  ROOT + "Css/Instellingen.css",
+  ROOT + "Css/Meetgeschiedenis.css",
+  ROOT + "Css/Toevoegen.css",
 
   // JS
-  "./Javascript/script.js",
-  "./Javascript/translate.js",
-  "./Javascript/instellingen.js",
+  ROOT + "Javascript/script.js",
+  ROOT + "Javascript/translate.js",
+  ROOT + "Javascript/instellingen.js",
 
   // Language JSON
-  "./language/nl.json",
-  "./language/en.json",
-  "./language/de.json",
+  ROOT + "language/nl.json",
+  ROOT + "language/en.json",
+  ROOT + "language/de.json",
 
   // Images
-  "./Images/favicon.ico",
-  "./Images/Desktop.png",
-  "./Images/heart_icon_192x192.png",
-  "./Images/heart_icon_512x512.png",
-  "./Images/telefoon.jpeg",
+  ROOT + "Images/favicon.ico",
+  ROOT + "Images/Desktop.png",
+  ROOT + "Images/heart_icon_192x192.png",
+  ROOT + "Images/heart_icon_512x512.png",
+  ROOT + "Images/telefoon.jpeg",
 
   // Pages
-  "./Pages/Instellingen.html",
-  "./Pages/MeetGeschiedenis.html",
-  "./Pages/Toevoegen.html"
+  ROOT + "Pages/Instellingen.html",
+  ROOT + "Pages/MeetGeschiedenis.html",
+  ROOT + "Pages/Toevoegen.html"
 ];
 
 self.addEventListener("install", event => {
