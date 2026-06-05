@@ -24,7 +24,10 @@ function slaPrefsOp(prefs) {
 }
 
 async function vulFormulier(prefs) {
-  document.getElementById("toggle-push").checked = prefs.push;
+  const togglePush = document.getElementById("toggle-push");
+  if (!togglePush) return;
+
+  togglePush.checked = prefs.push;
   document.getElementById("toggle-bloeddruk").checked = prefs.bloeddruk;
   document.getElementById("toggle-medicijnen").checked = prefs.medicijnen;
   document.getElementById("tijd-bd").value = prefs.tijdBloeddruk;
@@ -45,7 +48,6 @@ async function vulFormulier(prefs) {
 document.addEventListener("DOMContentLoaded", async () => {
   const prefs = laadPrefs();
 
-  // ✅ Only run settings form logic if we're on Instellingen.html
   const opInstellingenPagina = document.getElementById("toggle-push") !== null;
 
   if (opInstellingenPagina) {
@@ -97,24 +99,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const knop = document.getElementById("opslaan-btn");
       knop.textContent =
-        nieuwePrefs.taal === "nl"
-          ? "Opgeslagen!"
-          : nieuwePrefs.taal === "de"
-          ? "Gespeichert!"
-          : "Saved!";
+        nieuwePrefs.taal === "nl" ? "Opgeslagen!" :
+        nieuwePrefs.taal === "de" ? "Gespeichert!" : "Saved!";
 
       setTimeout(() => {
         knop.textContent =
-          nieuwePrefs.taal === "nl"
-            ? "Opslaan"
-            : nieuwePrefs.taal === "de"
-            ? "Speichern"
-            : "Save";
+          nieuwePrefs.taal === "nl" ? "Opslaan" :
+          nieuwePrefs.taal === "de" ? "Speichern" : "Save";
       }, 2000);
     });
 
   } else {
-    // ✅ On all other pages: just apply saved theme and language
     document.documentElement.classList.toggle("dark", prefs.donker);
     if (prefs.taal) {
       document.documentElement.lang = prefs.taal;
