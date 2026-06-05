@@ -36,5 +36,19 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/BloodTracker/Eindopdracht/Images/Desktop.png",
+      "sizes": "1918x1050",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/BloodTracker/Eindopdracht/Images/telefoon.jpeg",
+      "sizes": "739x1600",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
   ]
 }
