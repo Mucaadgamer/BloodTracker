@@ -16,27 +16,25 @@
       "src": "/BloodTracker/Eindopdracht/Images/heart_icon_192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/BloodTracker/Eindopdracht/Images/heart_icon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/BloodTracker/Eindopdracht/Images/heart_icon_512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/BloodTracker/Eindopdracht/Images/Desktop.png",
-      "sizes": "1918x1050",
-      "type": "image/png",
-      "form_factor": "wide"
+      "purpose": "any"
     },
     {
-      "src": "/BloodTracker/Eindopdracht/Images/telefoon.jpeg",
-      "sizes": "739x1600",
-      "type": "image/jpeg",
-      "form_factor": "narrow"
+      "src": "/BloodTracker/Eindopdracht/Images/heart_icon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

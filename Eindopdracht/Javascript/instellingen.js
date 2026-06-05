@@ -37,7 +37,6 @@ async function vulFormulier(prefs) {
   document.getElementById("tijd-medicijnen").style.display =
     prefs.medicijnen ? "flex" : "none";
 
-  // THEMA BIJ LADEN (INSTELLINGEN PAGINA)
   document.documentElement.classList.toggle("dark", prefs.donker);
 
   await loadLanguage(prefs.taal);
@@ -45,74 +44,81 @@ async function vulFormulier(prefs) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const prefs = laadPrefs();
-  await vulFormulier(prefs);
 
-  // PUSH
-  document.getElementById("toggle-push").addEventListener("change", async (e) => {
-    if (e.target.checked && Notification.permission !== "granted") {
-      const toestemming = await Notification.requestPermission();
-      if (toestemming !== "granted") {
-        e.target.checked = false;
-        alert("Meldingen geblokkeerd. Sta ze toe in je browser-instellingen.");
+  // ✅ Only run settings form logic if we're on Instellingen.html
+  const opInstellingenPagina = document.getElementById("toggle-push") !== null;
+
+  if (opInstellingenPagina) {
+    await vulFormulier(prefs);
+
+    document.getElementById("toggle-push").addEventListener("change", async (e) => {
+      if (e.target.checked && Notification.permission !== "granted") {
+        const toestemming = await Notification.requestPermission();
+        if (toestemming !== "granted") {
+          e.target.checked = false;
+          alert("Meldingen geblokkeerd. Sta ze toe in je browser-instellingen.");
+        }
       }
-    }
-  });
+    });
 
-  // BLOEDDRUK
-  document.getElementById("toggle-bloeddruk").addEventListener("change", (e) => {
-    document.getElementById("tijd-bloeddruk").style.display =
-      e.target.checked ? "flex" : "none";
-  });
+    document.getElementById("toggle-bloeddruk").addEventListener("change", (e) => {
+      document.getElementById("tijd-bloeddruk").style.display =
+        e.target.checked ? "flex" : "none";
+    });
 
-  // MEDICIJNEN
-  document.getElementById("toggle-medicijnen").addEventListener("change", (e) => {
-    document.getElementById("tijd-medicijnen").style.display =
-      e.target.checked ? "flex" : "none";
-  });
+    document.getElementById("toggle-medicijnen").addEventListener("change", (e) => {
+      document.getElementById("tijd-medicijnen").style.display =
+        e.target.checked ? "flex" : "none";
+    });
 
-  // LIVE THEMA PREVIEW (ALLEEN OP DEZE PAGINA)
-  document.getElementById("toggle-donker").addEventListener("change", (e) => {
-    document.documentElement.classList.toggle("dark", e.target.checked);
-  });
+    document.getElementById("toggle-donker").addEventListener("change", (e) => {
+      document.documentElement.classList.toggle("dark", e.target.checked);
+    });
 
-  // TAAL
-  document.getElementById("taal-keuze").addEventListener("change", async (e) => {
-    const lang = e.target.value;
-    document.documentElement.lang = lang;
-    await loadLanguage(lang);
-  });
+    document.getElementById("taal-keuze").addEventListener("change", async (e) => {
+      const lang = e.target.value;
+      document.documentElement.lang = lang;
+      await loadLanguage(lang);
+    });
 
-  // OPSLAAN
-  document.getElementById("opslaan-btn").addEventListener("click", async () => {
-    const nieuwePrefs = {
-      push: document.getElementById("toggle-push").checked,
-      bloeddruk: document.getElementById("toggle-bloeddruk").checked,
-      tijdBloeddruk: document.getElementById("tijd-bd").value,
-      medicijnen: document.getElementById("toggle-medicijnen").checked,
-      tijdMedicijnen: document.getElementById("tijd-med").value,
-      taal: document.getElementById("taal-keuze").value,
-      donker: document.getElementById("toggle-donker").checked,
-    };
+    document.getElementById("opslaan-btn").addEventListener("click", async () => {
+      const nieuwePrefs = {
+        push: document.getElementById("toggle-push").checked,
+        bloeddruk: document.getElementById("toggle-bloeddruk").checked,
+        tijdBloeddruk: document.getElementById("tijd-bd").value,
+        medicijnen: document.getElementById("toggle-medicijnen").checked,
+        tijdMedicijnen: document.getElementById("tijd-med").value,
+        taal: document.getElementById("taal-keuze").value,
+        donker: document.getElementById("toggle-donker").checked,
+      };
 
-    slaPrefsOp(nieuwePrefs);
+      slaPrefsOp(nieuwePrefs);
+      await loadLanguage(nieuwePrefs.taal);
 
-    await loadLanguage(nieuwePrefs.taal);
-
-    const knop = document.getElementById("opslaan-btn");
-    knop.textContent =
-      nieuwePrefs.taal === "nl"
-        ? "Opgeslagen!"
-        : nieuwePrefs.taal === "de"
-        ? "Gespeichert!"
-        : "Saved!";
-
-    setTimeout(() => {
+      const knop = document.getElementById("opslaan-btn");
       knop.textContent =
         nieuwePrefs.taal === "nl"
-          ? "Opslaan"
+          ? "Opgeslagen!"
           : nieuwePrefs.taal === "de"
-          ? "Speichern"
-          : "Save";
-    }, 2000);
-  });
+          ? "Gespeichert!"
+          : "Saved!";
+
+      setTimeout(() => {
+        knop.textContent =
+          nieuwePrefs.taal === "nl"
+            ? "Opslaan"
+            : nieuwePrefs.taal === "de"
+            ? "Speichern"
+            : "Save";
+      }, 2000);
+    });
+
+  } else {
+    // ✅ On all other pages: just apply saved theme and language
+    document.documentElement.classList.toggle("dark", prefs.donker);
+    if (prefs.taal) {
+      document.documentElement.lang = prefs.taal;
+      await loadLanguage(prefs.taal);
+    }
+  }
 });
