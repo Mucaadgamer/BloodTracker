@@ -1,25 +1,15 @@
+// ⭐ Absolute root voor GitHub Pages
+const ROOT = "/BloodTracker/Eindopdracht/";
+
 async function loadLanguage(lang) {
   try {
-    // ✔ Detecteer automatisch of we in /Pages/ zitten
-    let basePath = window.location.pathname.includes("/Pages/")
-      ? "../"
-      : "./";
+    // ⭐ Altijd absolute paden gebruiken
+    const url = `${ROOT}language/${lang}.json`;
 
-    const url = `${basePath}language/${lang}.json`;
+    const response = await fetch(url);
+    const data = await response.json();
 
-    const cache = await caches.open("pulsewatch-final-v3");
-    const cached = await cache.match(url);
-
-    let data;
-
-    if (cached) {
-      data = await cached.json();
-    } else {
-      const response = await fetch(url);
-      data = await response.json();
-    }
-
-    // ⭐ 1. Statische teksten vertalen (iconen behouden)
+    // ⭐ 1. Statische teksten vertalen
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       if (!data[key]) return;
@@ -45,11 +35,8 @@ async function loadLanguage(lang) {
   }
 }
 
-
-// ⭐ 4. Vertaal dynamische content (geschiedenis + dashboard + filters)
 function translateDynamicContent(data) {
-
-  // ─── STATUS BADGES ───────────────────────────────
+  // STATUS BADGES
   document.querySelectorAll(".status-badge").forEach(el => {
     const txt = el.textContent.trim();
 
@@ -71,13 +58,13 @@ function translateDynamicContent(data) {
     if (map[txt]) el.textContent = map[txt];
   });
 
-  // ─── LEEGTEKST ───────────────────────────────────
+  // LEEGTEKST
   const empty = document.querySelector(".leeg-tekst");
   if (empty && data["no_measurements"]) {
     empty.textContent = data["no_measurements"];
   }
 
-  // ─── FILTER KNOPPEN ──────────────────────────────
+  // FILTER KNOPPEN
   document.querySelectorAll(".filter-btn").forEach(btn => {
     const f = btn.dataset.filter;
 
@@ -91,7 +78,7 @@ function translateDynamicContent(data) {
     if (map[f]) btn.textContent = map[f];
   });
 
-  // ─── PAGINATIE ───────────────────────────────────
+  // PAGINATIE
   const paginatie = document.getElementById("paginatie");
   if (paginatie) {
     paginatie.querySelectorAll("button").forEach(btn => {
@@ -102,10 +89,5 @@ function translateDynamicContent(data) {
         btn.textContent = data["next"];
       }
     });
-  }
-
-  // ─── DASHBOARD TITELS ────────────────────────────
-  if (document.getElementById("recent-title") && data["recent_measurements"]) {
-    document.getElementById("recent-title").textContent = data["recent_measurements"];
   }
 }

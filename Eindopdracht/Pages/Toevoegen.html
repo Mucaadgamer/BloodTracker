@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../Css/Toevoegen.css" />
     <link rel="stylesheet" href="../Css/Instellingen.css" />
     <link rel="stylesheet" href="../Css/Theme.css" />
-    <link rel="icon" href="../Images/favicon.ico">
+    <link rel="icon" href="/BloodTracker/Eindopdracht/Images/favicon.ico" />
 
     <!-- ✔ Juiste JS paden -->
     <script src="../Javascript/translate.js" defer></script>
@@ -53,7 +53,9 @@
         </div>
 
         <div class="form-group">
-          <label for="notitie" data-i18n="note_optional">Notitie (optioneel)</label>
+          <label for="notitie" data-i18n="note_optional"
+            >Notitie (optioneel)</label
+          >
           <textarea id="notitie" rows="3"></textarea>
         </div>
 
@@ -87,12 +89,14 @@
     </footer>
 
     <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        const prefs = JSON.parse(localStorage.getItem('pulsewatch_prefs') || '{}');
+      document.addEventListener("DOMContentLoaded", async () => {
+        const prefs = JSON.parse(
+          localStorage.getItem("pulsewatch_prefs") || "{}",
+        );
 
         document.documentElement.setAttribute(
-          'data-theme',
-          prefs.donker ? 'dark' : 'light'
+          "data-theme",
+          prefs.donker ? "dark" : "light",
         );
 
         if (prefs.taal) {
@@ -101,7 +105,9 @@
         }
       });
 
-      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      const prefs = JSON.parse(
+        localStorage.getItem("pulsewatch_prefs") || "{}",
+      );
       if (prefs.donker) {
         document.documentElement.classList.add("dark");
       }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../Css/Meetgeschiedenis.css" />
     <link rel="stylesheet" href="../Css/Instellingen.css" />
     <link rel="stylesheet" href="../Css/Theme.css" />
-    <link rel="icon" href="../Images/favicon.ico">
+    <link rel="icon" href="/BloodTracker/Eindopdracht/Images/favicon.ico" />
 
     <!-- ✔ Juiste JS paden -->
     <script src="../Javascript/translate.js" defer></script>
@@ -31,13 +31,28 @@
     </header>
 
     <main class="main-content">
-
       <!-- FILTER KNOPPEN -->
       <div class="filter-container">
-        <button class="filter-btn" data-filter="vandaag" data-i18n="filter_today">Vandaag</button>
-        <button class="filter-btn" data-filter="week" data-i18n="filter_week">Deze week</button>
-        <button class="filter-btn" data-filter="maand" data-i18n="filter_month">Deze maand</button>
-        <button class="filter-btn active" data-filter="alles" data-i18n="filter_all">Alles</button>
+        <button
+          class="filter-btn"
+          data-filter="vandaag"
+          data-i18n="filter_today"
+        >
+          Vandaag
+        </button>
+        <button class="filter-btn" data-filter="week" data-i18n="filter_week">
+          Deze week
+        </button>
+        <button class="filter-btn" data-filter="maand" data-i18n="filter_month">
+          Deze maand
+        </button>
+        <button
+          class="filter-btn active"
+          data-filter="alles"
+          data-i18n="filter_all"
+        >
+          Alles
+        </button>
       </div>
 
       <!-- GESCHIEDENIS LIJST -->
@@ -69,12 +84,14 @@
     </footer>
 
     <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        const prefs = JSON.parse(localStorage.getItem('pulsewatch_prefs') || '{}');
+      document.addEventListener("DOMContentLoaded", async () => {
+        const prefs = JSON.parse(
+          localStorage.getItem("pulsewatch_prefs") || "{}",
+        );
 
         document.documentElement.setAttribute(
-          'data-theme',
-          prefs.donker ? 'dark' : 'light'
+          "data-theme",
+          prefs.donker ? "dark" : "light",
         );
 
         if (prefs.taal) {
@@ -83,7 +100,9 @@
         }
       });
 
-      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      const prefs = JSON.parse(
+        localStorage.getItem("pulsewatch_prefs") || "{}",
+      );
       if (prefs.donker) {
         document.documentElement.classList.add("dark");
       }
