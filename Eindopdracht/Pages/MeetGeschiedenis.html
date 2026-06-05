@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-i18n="history">Meetgeschiedenis</title>
 
-    <!-- JUISTE RELATIEVE PADEN -->
+    <!-- ✔ Juiste paden voor subfolder -->
     <link rel="stylesheet" href="../Css/Meetgeschiedenis.css" />
     <link rel="stylesheet" href="../Css/Instellingen.css" />
     <link rel="stylesheet" href="../Css/Theme.css" />
+    <link rel="icon" href="../Images/favicon.ico">
 
-    <link rel="icon" href="../images/favicon.ico">
-
+    <!-- ✔ Juiste JS paden -->
     <script src="../Javascript/translate.js" defer></script>
     <script src="../Javascript/instellingen.js" defer></script>
     <script src="../Javascript/script.js" defer></script>
@@ -24,26 +24,28 @@
         <h1 class="app-titel">PulseWatch</h1>
       </div>
 
-      <a href="Instellingen.html">
+      <!-- ✔ Navigatie gefixt -->
+      <a href="./Instellingen.html">
         <span class="nav-icon-settings">⚙️</span>
       </a>
     </header>
 
     <main class="main-content">
 
-<div class="filter-container">
-<button class="filter-btn" data-filter="vandaag" data-i18n="filter_today">Vandaag</button>
-<button class="filter-btn" data-filter="week" data-i18n="filter_week">Deze week</button>
-<button class="filter-btn" data-filter="maand" data-i18n="filter_month">Deze maand</button>
-<button class="filter-btn active" data-filter="alles" data-i18n="filter_all">Alles</button>
+      <!-- FILTER KNOPPEN -->
+      <div class="filter-container">
+        <button class="filter-btn" data-filter="vandaag" data-i18n="filter_today">Vandaag</button>
+        <button class="filter-btn" data-filter="week" data-i18n="filter_week">Deze week</button>
+        <button class="filter-btn" data-filter="maand" data-i18n="filter_month">Deze maand</button>
+        <button class="filter-btn active" data-filter="alles" data-i18n="filter_all">Alles</button>
+      </div>
 
-</div>
-
-
+      <!-- GESCHIEDENIS LIJST -->
       <div id="geschiedenis-lijst">
         <p class="leeg-tekst" data-i18n="no_measurements">Nog geen metingen.</p>
       </div>
 
+      <!-- PAGINATIE -->
       <div id="paginatie" class="paginatie"></div>
     </main>
 
@@ -54,12 +56,12 @@
           <span class="nav-label" data-i18n="dashboard">Dashboard</span>
         </a>
 
-        <a href="Toevoegen.html">
+        <a href="./Toevoegen.html">
           <span class="nav-icon">➕</span>
           <span class="nav-label" data-i18n="add">Toevoegen</span>
         </a>
 
-        <a href="MeetGeschiedenis.html" class="active">
+        <a href="./MeetGeschiedenis.html" class="active">
           <span class="nav-icon">📊</span>
           <span class="nav-label" data-i18n="history">Geschiedenis</span>
         </a>
@@ -81,11 +83,10 @@
         }
       });
 
-  const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
-  if (prefs.donker) {
-    document.documentElement.classList.add("dark");
-  }
-</script>
+      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      if (prefs.donker) {
+        document.documentElement.classList.add("dark");
+      }
     </script>
   </body>
 </html>

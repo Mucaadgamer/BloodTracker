@@ -1,6 +1,11 @@
 async function loadLanguage(lang) {
   try {
-    const url = `/language/${lang}.json`;
+    // ✔ Detecteer automatisch of we in /Pages/ zitten
+    let basePath = window.location.pathname.includes("/Pages/")
+      ? "../"
+      : "./";
+
+    const url = `${basePath}language/${lang}.json`;
 
     const cache = await caches.open("pulsewatch-final-v3");
     const cached = await cache.match(url);
@@ -19,7 +24,6 @@ async function loadLanguage(lang) {
       const key = el.getAttribute("data-i18n");
       if (!data[key]) return;
 
-      // behoud iconen (emoji, svg, span)
       const icon =
         el.querySelector("svg, i, span.icon, .nav-icon")?.outerHTML ||
         (el.textContent.trim().match(/^[^\w\s]/)?.[0] || "");

@@ -1,43 +1,43 @@
-const CACHE_NAME = "pulsewatch-final-v4";
+const CACHE_NAME = "pulsewatch-cache-v4";
 
-const ASSETS = [
-  // HTML
-  "index.html",
-  "Pages/Instellingen.html",
-  "Pages/Toevoegen.html",
-  "Pages/MeetGeschiedenis.html",
-
-  "images/favicon.ico",
+const FILES_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./manifest.json",
 
   // CSS
-  "Css/style.css",
-  "Css/Instellingen.css",
-  "Css/Toevoegen.css",
-  "Css/Meetgeschiedenis.css",
+  "./Css/style.css",
+  "./Css/Theme.css",
+  "./Css/Instellingen.css",
+  "./Css/Meetgeschiedenis.css",
+  "./Css/Toevoegen.css",
 
   // JS
-  "Javascript/script.js",
-  "Javascript/translate.js",
-  "Javascript/instellingen.js",
+  "./Javascript/script.js",
+  "./Javascript/translate.js",
+  "./Javascript/instellingen.js",
 
-  // Taal
-  "language/nl.json",
-  "language/en.json",
-  "language/de.json",
+  // Language JSON
+  "./language/nl.json",
+  "./language/en.json",
+  "./language/de.json",
 
-  // Afbeeldingen
-  "Images/heart_icon_192x192.png",
-  "Images/heart_icon_512x512.png",
-  "Images/Desktop.png",
-  "Images/telefoon.jpeg",
+  // Images
+  "./Images/favicon.ico",
+  "./Images/Desktop.png",
+  "./Images/heart_icon_192x192.png",
+  "./Images/heart_icon_512x512.png",
+  "./Images/telefoon.jpeg",
 
-  // Manifest
-  "manifest.json"
+  // Pages
+  "./Pages/Instellingen.html",
+  "./Pages/MeetGeschiedenis.html",
+  "./Pages/Toevoegen.html"
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
   );
   self.skipWaiting();
 });
@@ -55,14 +55,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-
-      return fetch(event.request).catch(() => {
-        if (event.request.mode === "navigate") {
-          return caches.match("index.html");
-        }
-      });
-    })
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PulseWatch – Dashboard</title>
 
-    <link rel="stylesheet" href="Css/style.css" />
-    <link rel="stylesheet" href="Css/Theme.css" />
-    <link rel="icon" href="Images/favicon.ico">
+    <!-- ✔ Juiste paden voor subfolder -->
+    <link rel="stylesheet" href="./Css/style.css" />
+    <link rel="stylesheet" href="./Css/Theme.css" />
+    <link rel="icon" href="./Images/favicon.ico">
 
-    <script src="Javascript/translate.js" defer></script>
-    <script src="Javascript/script.js" defer></script>
+    <!-- ✔ Juiste JS paden -->
+    <script src="./Javascript/translate.js" defer></script>
+    <script src="./Javascript/script.js" defer></script>
   </head>
 
   <body>
@@ -20,7 +22,8 @@
         <h1 class="app-titel">PulseWatch</h1>
       </div>
 
-      <a href="Pages/Instellingen.html">
+      <!-- ✔ Navigatie gefixt -->
+      <a href="./Pages/Instellingen.html">
         <span class="nav-icon-settings">⚙️</span>
       </a>
     </header>
@@ -55,17 +58,17 @@
 
     <footer>
       <nav class="Bottom-nav">
-        <a href="index.html" class="active">
+        <a href="./index.html" class="active">
           <span class="nav-icon">🏠</span>
           <span class="nav-label" data-i18n="dashboard">Dashboard</span>
         </a>
 
-        <a href="Pages/Toevoegen.html">
+        <a href="./Pages/Toevoegen.html">
           <span class="nav-icon">➕</span>
           <span class="nav-label" data-i18n="add">Toevoegen</span>
         </a>
 
-        <a href="Pages/MeetGeschiedenis.html">
+        <a href="./Pages/MeetGeschiedenis.html">
           <span class="nav-icon">📊</span>
           <span class="nav-label" data-i18n="history">Geschiedenis </span>
         </a>
@@ -78,21 +81,18 @@
         document.documentElement.classList.add("dark");
       }
 
-  document.addEventListener("DOMContentLoaded", async () => {
-  const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
+      document.addEventListener("DOMContentLoaded", async () => {
+        const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
 
-  // taal instellen
-  if (prefs.taal) {
-    document.documentElement.lang = prefs.taal;
-    await loadLanguage(prefs.taal);
-  }
+        if (prefs.taal) {
+          document.documentElement.lang = prefs.taal;
+          await loadLanguage(prefs.taal);
+        }
 
-  // dark mode instellen
-  if (prefs.donker) {
-    document.documentElement.classList.add("dark");
-  }
-});
-
+        if (prefs.donker) {
+          document.documentElement.classList.add("dark");
+        }
+      });
     </script>
 
   </body>

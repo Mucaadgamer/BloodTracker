@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-i18n="settings_title">Instellingen</title>
 
-    <!-- JUISTE RELATIEVE PADEN -->
+    <!-- ✔ Juiste paden voor subfolder -->
     <link rel="stylesheet" href="../Css/Instellingen.css" />
-    <link rel="icon" href="../images/favicon.ico" />
     <link rel="stylesheet" href="../Css/Theme.css" />
+    <link rel="icon" href="../Images/favicon.ico" />
+
+    <!-- ✔ Juiste JS paden -->
     <script src="../Javascript/translate.js" defer></script>
     <script src="../Javascript/instellingen.js" defer></script>
+    <script src="../Javascript/script.js" defer></script>
   </head>
 
   <body>
@@ -20,7 +23,8 @@
         <h1 class="app-titel">PulseWatch</h1>
       </div>
 
-      <a href="Instellingen.html">
+      <!-- ✔ Navigatie gefixt -->
+      <a href="./Instellingen.html">
         <span class="nav-icon-settings">⚙️</span>
       </a>
     </header>
@@ -32,12 +36,8 @@
 
         <div class="settings-row">
           <div>
-            <p class="settings-label" data-i18n="push_notifications">
-              Push-meldingen
-            </p>
-            <p class="settings-desc" data-i18n="push_desc">
-              Ontvang herinneringen op je telefoon
-            </p>
+            <p class="settings-label" data-i18n="push_notifications">Push-meldingen</p>
+            <p class="settings-desc" data-i18n="push_desc">Ontvang herinneringen op je telefoon</p>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-push" />
@@ -48,9 +48,7 @@
         <div class="settings-row">
           <div>
             <p class="settings-label" data-i18n="bp_measure">Bloeddruk meten</p>
-            <p class="settings-desc" data-i18n="bp_desc">
-              Dagelijkse herinnering om te meten
-            </p>
+            <p class="settings-desc" data-i18n="bp_desc">Dagelijkse herinnering om te meten</p>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-bloeddruk" />
@@ -65,12 +63,8 @@
 
         <div class="settings-row">
           <div>
-            <p class="settings-label" data-i18n="medicine">
-              Medicijnen innemen
-            </p>
-            <p class="settings-desc" data-i18n="medicine_desc">
-              Herinnering voor je medicatie
-            </p>
+            <p class="settings-label" data-i18n="medicine">Medicijnen innemen</p>
+            <p class="settings-desc" data-i18n="medicine_desc">Herinnering voor je medicatie</p>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-medicijnen" />
@@ -91,9 +85,7 @@
         <div class="settings-row">
           <div>
             <p class="settings-label" data-i18n="language">Taal van de app</p>
-            <p class="settings-desc" data-i18n="language_desc">
-              Kies je voorkeurstaal
-            </p>
+            <p class="settings-desc" data-i18n="language_desc">Kies je voorkeurstaal</p>
           </div>
 
           <select id="taal-keuze" class="settings-select">
@@ -111,9 +103,7 @@
         <div class="settings-row">
           <div>
             <p class="settings-label" data-i18n="dark_mode">Donker thema</p>
-            <p class="settings-desc" data-i18n="dark_mode_desc">
-              Schakel over naar dark mode
-            </p>
+            <p class="settings-desc" data-i18n="dark_mode_desc">Schakel over naar dark mode</p>
           </div>
 
           <label class="toggle">
@@ -123,9 +113,7 @@
         </div>
       </section>
 
-      <button id="opslaan-btn" class="btn-primary" data-i18n="save">
-        Opslaan
-      </button>
+      <button id="opslaan-btn" class="btn-primary" data-i18n="save">Opslaan</button>
     </main>
 
     <footer>
@@ -135,12 +123,12 @@
           <span class="nav-label" data-i18n="dashboard">Dashboard</span>
         </a>
 
-        <a href="Toevoegen.html">
+        <a href="./Toevoegen.html">
           <span class="nav-icon">➕</span>
           <span class="nav-label" data-i18n="add">Toevoegen</span>
         </a>
 
-        <a href="MeetGeschiedenis.html">
+        <a href="./MeetGeschiedenis.html">
           <span class="nav-icon">📊</span>
           <span class="nav-label" data-i18n="history">Geschiedenis</span>
         </a>
@@ -148,9 +136,7 @@
     </footer>
 
     <script>
-      const prefs = JSON.parse(
-        localStorage.getItem("pulsewatch_prefs") || "{}",
-      );
+      const prefs = JSON.parse(localStorage.getItem("pulsewatch_prefs") || "{}");
       if (prefs.donker) {
         document.documentElement.classList.add("dark");
       }
